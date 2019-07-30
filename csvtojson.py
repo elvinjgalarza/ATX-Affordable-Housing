@@ -1,7 +1,7 @@
 import csv
 
 file = open("wampus.txt", "w+")
-file.write("[{")
+file.write("[")
 
 with open('Austin_Affordable_Housing.csv') as csvfile:
     reader = csv.reader(csvfile, delimiter = ',')
@@ -18,38 +18,60 @@ with open('Austin_Affordable_Housing.csv') as csvfile:
     #excel[X][56] is for location(lat,lon)
     #excel iterator
     i = 0
-    n = 0
+    n = 1
     for row in excel:
         if excel[i][6] == "78,705":
             if excel[i][12] == "Rental":
                 #ID
-                file.write('"ID":')
-                file.write(str(n))
+                file.write('{"ID":')
+                file.write('%d' %n)
                 n+=1
                 file.write(',')
 
                 #Name
-                file.write('"Name:"')
+                file.write('"Name:""')
                 file.write(excel[i][2])
-                file.write(',')
+                file.write('",')
 
                 #Address
-                file.write('"Address:"')
+                file.write('"Address:""')
                 file.write(excel[i][5])
-                file.write(',')
+                file.write('",')
 
                 #Zip Code
-                file.write("Zip Code: 78705,")
+                file.write('"Zip Code":"78705",')
+
+                #Total Units 
+                file.write('"Total Units:""')
+                file.write(excel[i][8])
+                file.write('",')
+
+                #Total Affordable Units
+                file.write('"Total Affordable Units:""')
+                file.write(excel[i][9])
+                file.write('",')
+
+                #Owner
+                file.write('"Owner:""')
+                file.write(excel[i][3])
+                file.write('",')
+
+                #Developer
+                file.write('"Developer""')
+                file.write(excel[i][4])
+                file.write('",')
 
                 #Latitude
                 file.write('"lat:"')
                 file.write(excel[i][55])
+                file.write(',')
 
                 #Longitude
                 file.write('"lng:"')
                 file.write(excel[i][54])
+                #file.write('"')
                 file.write("}")
-                if n > 0 and n < 66:
+                if n > 1 and n < 66:
                     file.write(",")
 
                 #file.write(excel[i][56]) 
